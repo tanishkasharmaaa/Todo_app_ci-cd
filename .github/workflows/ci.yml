@@ -25,7 +25,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npx plywright test
-        
+        run: npx playwright test
+
       - name: Build application
         run: npm run build
