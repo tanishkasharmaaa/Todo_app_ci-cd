@@ -25,10 +25,13 @@ jobs:
         run: npm run lint
       
       - name: Install Playwright
-        run: npx playwright install
-        
-      - name: Run tests
-        run: npx playwright test
+        run: npx playwright install --with-deps chromium
 
       - name: Build application
         run: npm run build
+      
+      - name: Start application
+        run: npm run start &
+
+      - name: Run Playwright tests
+        run: npx playwright test  
