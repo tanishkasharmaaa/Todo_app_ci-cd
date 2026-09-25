@@ -1,9 +1,51 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
-  await page.getByRole('textbox', { name: 'Enter your todo...' }).fill('Gym Training');
+  await page.goto('http://localhost:3000/registration');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Name' }).fill('T');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Name' }).fill('Tanishka');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('tanishka');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('tanishka@gmail.com');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Aa');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Aabbcc12');
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('tani');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Email' }).fill('tanishka@gmail.com');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Aa');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Aabbcc');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Aabbcc12');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Enter your todo...' }).click();
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
   await page.getByRole('button', { name: 'Add' }).click();
-  await page.getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Delete Gym Training' }).click();
+  await page.getByRole('textbox', { name: 'Enter your todo...' }).fill('Cycling');
+  await page.getByRole('textbox', { name: 'Enter your todo...' }).press('Enter');
+  await page.getByRole('textbox', { name: 'Enter your todo...' }).fill('Shopping');
+  await page.getByRole('button', { name: 'Add' }).click();
+  await page.getByRole('textbox', { name: 'Enter your todo...' }).fill('Task 123');
+  await page.getByRole('button', { name: 'Add' }).click();
+  await page.getByRole('checkbox').nth(2).check();
+  await page.getByRole('button', { name: 'Delete Task' }).click();
+  await page.getByRole('checkbox').nth(1).check();
+  await page.getByRole('button', { name: 'Delete Cycling' }).click();
+  await page.getByRole('button', { name: 'Delete Shopping' }).click();
+  page.once('dialog', dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    dialog.dismiss().catch(() => {});
+  });
+  await page.getByRole('button', { name: 'Add' }).click();
 });
