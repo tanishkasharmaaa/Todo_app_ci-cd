@@ -157,7 +157,7 @@ export default function Login() {
 
           {/* Footer */}
           <p className="mt-6 text-center text-sm text-gray-500">
-            You don't have an account?{" "}
+            Don&apos;t have an account?{" "}
 
             <span
               className="cursor-pointer font-semibold text-blue-600 hover:text-blue-700"
