@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Trash } from "lucide-react";
 import {toast} from "sonner"
 import { redirect } from "next/navigation";
@@ -14,14 +14,15 @@ interface TodoItem {
 }
 
 export default function Todo() {
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+
+ useEffect(()=>{
   const getLoginData = localStorage.getItem("LoginData")
   if(!getLoginData){
     redirect("/login")
   }
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState<TodoItem[]>([]);
-
-  
+ },[]) 
 
   const addTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

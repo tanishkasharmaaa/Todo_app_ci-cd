@@ -1,46 +1,64 @@
 
 "use client";
 
-import { redirect } from "next/navigation";
-import {useForm,SubmitHandler} from "react-hook-form"
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-interface LoginInputValues{
-    email:string,
-    password:string
+interface LoginInputValues {
+  email: string;
+  password: string;
 }
-export default function Login(){
-    const {register,handleSubmit,reset,formState:{errors,isSubmitting}}=useForm<LoginInputValues>()
 
-    const onSubmit:SubmitHandler<LoginInputValues>=async(data)=>{
-        let getRegistrationData = localStorage.getItem("RegistrationData");
-        if(getRegistrationData){
-            let registrationData = JSON.parse(getRegistrationData);
-            
-            if(registrationData.email===data.email && registrationData.password===data.password){
-                localStorage.setItem("LoginData",JSON.stringify(data));
-                toast("Login completed successfully 🎉",
-                {
-                    duration:4000,
-                }
-                )
-                // Clear form after successful login
-                reset();
-                redirect("/todos");
-            }
-            else{
-                toast("Invalid credentials",{duration:4000})
-            }
-        }
-        else{
-          toast("Please register first",{duration:4000})
-        }
+export default function Login() {
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginInputValues>();
+
+  const onSubmit: SubmitHandler<LoginInputValues> = async (data) => {
+    const getRegistrationData =
+      localStorage.getItem("RegistrationData");
+
+    if (getRegistrationData) {
+      const registrationData = JSON.parse(getRegistrationData);
+
+      if (
+        registrationData.email === data.email &&
+        registrationData.password === data.password
+      ) {
+        localStorage.setItem("LoginData", JSON.stringify(data));
+
+        toast("Login completed successfully 🎉", {
+          duration: 4000,
+        });
+
+        // Clear form after successful login
+        reset();
+
+        // Navigate to todos page
+        router.push("/todos");
+      } else {
+        toast("Invalid credentials", {
+          duration: 4000,
+        });
+      }
+    } else {
+      toast("Please register first", {
+        duration: 4000,
+      });
     }
-    return(
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 px-4 py-8 flex items-center justify-center">
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 px-4 py-8 flex items-center justify-center">
       <div className="w-full max-w-md">
         <div className="rounded-2xl border border-blue-100 bg-white p-6 sm:p-8 shadow-xl">
-          
+
           {/* Header */}
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-extrabold text-blue-700">
@@ -48,7 +66,7 @@ export default function Login(){
             </h1>
 
             <p className="mt-2 text-sm text-gray-500">
-              Create your account to get started
+              Login to your account to continue
             </p>
           </div>
 
@@ -56,8 +74,6 @@ export default function Login(){
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
           >
-            {/* Name */}
-           
 
             {/* Email */}
             <div>
@@ -73,12 +89,11 @@ export default function Login(){
                 type="email"
                 placeholder="Enter your email"
                 autoComplete="email"
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-base text-gray-900 outline-none transition
-                  ${
-                    errors.email
-                      ? "border-red-500 focus:ring-2 focus:ring-red-200"
-                      : "border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  }`}
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-base text-gray-900 outline-none transition ${
+                  errors.email
+                    ? "border-red-500 focus:ring-2 focus:ring-red-200"
+                    : "border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                }`}
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -108,13 +123,12 @@ export default function Login(){
                 id="password"
                 type="password"
                 placeholder="Enter your password"
-                autoComplete="new-password"
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-base text-gray-900 outline-none transition
-                  ${
-                    errors.password
-                      ? "border-red-500 focus:ring-2 focus:ring-red-200"
-                      : "border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  }`}
+                autoComplete="current-password"
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-base text-gray-900 outline-none transition ${
+                  errors.password
+                    ? "border-red-500 focus:ring-2 focus:ring-red-200"
+                    : "border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                }`}
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -144,12 +158,18 @@ export default function Login(){
           {/* Footer */}
           <p className="mt-6 text-center text-sm text-gray-500">
             You don't have an account?{" "}
-            <span className="cursor-pointer font-semibold text-blue-600 hover:text-blue-700"  onClick={()=>window.location.replace("/registration")}>
+
+            <span
+              className="cursor-pointer font-semibold text-blue-600 hover:text-blue-700"
+              onClick={() => router.push("/registration")}
+            >
               Register
             </span>
           </p>
+
         </div>
       </div>
     </div>
-    )
+  );
 }
+
