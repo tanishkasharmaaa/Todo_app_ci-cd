@@ -70,7 +70,7 @@ export default function RegistrationPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Name */}
             <div>
               <label
@@ -178,6 +178,7 @@ export default function RegistrationPage() {
 
             {/* Submit Button */}
             <button
+              aria-label="register"
               type="submit"
               disabled={isSubmitting}
               className="w-full rounded-lg bg-blue-600 px-4 py-3 text-base font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"

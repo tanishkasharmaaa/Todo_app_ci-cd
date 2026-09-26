@@ -34,8 +34,8 @@ export default function Login() {
         localStorage.setItem("LoginData", JSON.stringify(data));
 
         toast("Login completed successfully 🎉", {
-          duration: 4000,
-        });
+      duration: 4000,
+    });
 
         // Clear form after successful login
         reset();
@@ -71,6 +71,7 @@ export default function Login() {
           </div>
 
           <form
+            noValidate
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
           >

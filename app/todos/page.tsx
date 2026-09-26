@@ -17,12 +17,12 @@ export default function Todo() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState<TodoItem[]>([]);
 
- useEffect(()=>{
-  const getLoginData = localStorage.getItem("LoginData")
-  if(!getLoginData){
-    redirect("/login")
-  }
- },[]) 
+//  useEffect(()=>{
+//   const getLoginData = localStorage.getItem("LoginData")
+//   if(!getLoginData){
+//     redirect("/login")
+//   }
+//  },[]) 
 
   const addTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -154,6 +154,7 @@ export default function Todo() {
 
       {/* Right Side: Delete */}
       <button
+        data-testid={`todo-${item.id}`}
         type="button"
         className="ml-4 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-red-500 transition hover:bg-red-50 hover:text-red-600"
         aria-label={`Delete ${item.title}`}
