@@ -1,10 +1,9 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import {Trash } from "lucide-react";
 import {toast} from "sonner"
-import { redirect } from "next/navigation";
 
 interface TodoItem {
   id: number;

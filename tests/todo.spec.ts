@@ -13,7 +13,7 @@ test("regisrtaion show error when name,email,password is empty",async({page})=>{
 
 test("regisration show error when name length is less than 2",async({page})=>{
   await page.goto("/registration")
-  let nameInput = page.getByRole("textbox",{name:"Name"})
+  const nameInput = page.getByRole("textbox",{name:"Name"})
   await nameInput.fill("A")
   await page.getByRole("button",{name:"Register"}).click()
   await expect(page.getByText("Name must be at least 2 characters")).toBeVisible()
@@ -32,7 +32,7 @@ test("registration error come when email is invalid",async({page})=>{
 
 test("registration error show when password length is less than 6",async({page})=>{
   await page.goto("/registration")
-  let passwordInput = page.getByRole("textbox",{name:"Password"})
+  const passwordInput = page.getByRole("textbox",{name:"Password"})
   await passwordInput.fill("12345")
   await page.getByRole("button",{name:"Register"}).click()
   await expect(page.getByText("Password must be at least 6 characters")).toBeVisible()
@@ -43,7 +43,7 @@ test("user can register successfully",async({page})=>{
 
   const nameInput = page.getByRole("textbox", { name: "Name" });
   await nameInput.fill("John Doe");
-  const emailInput = page.getByRole("textbox", { name: "Email" });
+ const emailInput = page.getByRole("textbox", { name: "Email" });
   await emailInput.fill("0K5E4@example.com");
   const passwordInput = page.getByRole("textbox", { name: "Password" });
   await passwordInput.fill("password123");
@@ -75,7 +75,7 @@ test("login error come when email is invalid",async({page})=>{
 
 test("login error show when password length is less than 6",async({page})=>{
   await page.goto("/login")
-  let passwordInput = page.getByRole("textbox",{name:"Password"})
+  const passwordInput = page.getByRole("textbox",{name:"Password"})
   await passwordInput.fill("12345")
   await page.getByRole("button",{name:"Login"}).click()
   await expect(page.getByText("Password must be at least 6 characters")).toBeVisible()
